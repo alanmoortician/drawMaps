@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Drawing Maps</title>
+	
+</head>
+<body>
+
+<canvas id="canvas" width="320" height="320" style="border:1px solid red;">
+Your browser does not support HTML5 Canvas.
+</canvas>
+
+<script>
+
+	var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var tilesetImage = new Image();
+	  
+	var tileSize = 32;       // The size of a tile (32x32)
+	var rowTileCount = 10;   // The number of tiles in a row of our background
+	var colTileCount = 10;   // The number of tiles in a column of our background
+	var imageNumTiles = 8;  // The number of tiles per row in the tileset image
+
+	// The tileset arrays
+	var ground = [
+		[31,30,30,30,0,30,30,30,30,31]
+	 ,  [0,0,0,0,0,0,0,0,0,0]
+	 ,  [31,0,25,0,25,0,25,0,0,31]
+	 ,  [31,25,0,0,25,0,0,25,0,31]
+	 ,  [31,0,0,0,25,25,0,25,0,31]
+	 ,  [31,0,0,25,0,0,0,25,0,31]
+	 ,  [31,0,0,0,0,0,0,25,0,31]
+	 ,  [0,0,25,0,25,0,25,0,0,0]
+	 ,  [31,0,0,0,0,0,0,0,0,31]
+	 ,  [31,30,30,30,0,30,30,30,30,31]
+	 ];
+ 
+
+      tilesetImage.onload = function() {
+        	for (var r = 0; r < rowTileCount; r++) {
+				for (var c = 0; c < colTileCount; c++) {
+					var tile = ground[ r ][ c ];
+					var tileRow = (tile / imageNumTiles) | 0; // Bitwise OR operation
+					var tileCol = (tile % imageNumTiles) | 0;
+					ctx.drawImage(tilesetImage, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, (c * tileSize), (r * tileSize), tileSize, tileSize); 
+				}
+			}
+		};
+    tilesetImage.src = 'tanks_sheet.png';
+	
+
+</script>
+
+</body>
+</html>
